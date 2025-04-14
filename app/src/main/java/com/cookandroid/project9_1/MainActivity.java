@@ -15,19 +15,52 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 abstract class Shape{
-    int startX = -1, startY = -1, stopX = -1, stopY = -1;
+    int startX, startY, stopX, stopY;
+    Paint paint;
+    public Shape(int startX, int startY, int stopX, int stopY) {
+        this.startX = startX;
+        this.startY = startY;
+        this.stopX = stopX;
+        this.stopY = stopY;
 
+        paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setStrokeWidth(5);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.RED);
+    }
+    abstract void draw(Canvas canvas);
 }
 
 class Line extends Shape{
+    public Line(int startX, int startY, int stopX, int stopY) {
+        super(startX, startY, stopX, stopY);
+    }
 
+    void draw(Canvas canvas){
+        canvas.drawLine(startX, startY, stopX, stopY, paint);
+    }
 }
 
 class Circle extends Shape{
+    public Circle(int startX, int startY, int stopX, int stopY) {
+        super(startX, startY, stopX, stopY);
+    }
 
+    void draw(Canvas canvas){
+        int radius = (int) Math.sqrt(Math.pow(stopX - startX, 2) + Math.pow(stopY - startY, 2));
+        canvas.drawCircle(startX, startY, radius, paint);
+    }
 }
 
 class Square extends Shape{
+    public Square(int startX, int startY, int stopX, int stopY) {
+        super(startX, startY, stopX, stopY);
+    }
+
+    void draw(Canvas canvas){
+        canvas.drawRect(startX, startY, stopX, stopY, paint);
+    }
 
 }
 
@@ -91,14 +124,14 @@ public class MainActivity extends AppCompatActivity {
                     Shape a = null;
                     switch (curShape){
                         case LINE:
-                            a = new Line();
+                            a = new Line(startX,startY,stopX,stopY);
                             break;
                         case CIRCLE:
-                            a = new Circle();
+                            a = new Circle(startX,startY,stopX,stopY);
                             break;
 
                         case SQUARE:
-                            a = new Square();
+                            a = new Square(startX,startY,stopX,stopY);
                             break;
                     }
                     ShapeList.add(a);
@@ -111,13 +144,18 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onDraw(Canvas canvas) {
             super.onDraw(canvas);
+
+            for (Shape shape : ShapeList){
+                shape.draw(canvas);
+            }
+
             /*
             Paint paint = new Paint();
             paint.setAntiAlias(true);
             paint.setStrokeWidth(5);
             paint.setStyle(Paint.Style.STROKE);
             paint.setColor(Color.RED);
-            */
+
 
             switch (curShape) {
                 case LINE:
@@ -128,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
                     canvas.drawCircle(startX, startY, radius, paint);
                     break;
             }
+            */
         }
     }
 }
