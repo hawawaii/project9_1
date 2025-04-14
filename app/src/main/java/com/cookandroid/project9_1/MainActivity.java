@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
                     startX = (int) event.getX();
                     startY = (int) event.getY();
                     break;
-                case MotionEvent.ACTION_MOVE:
                 case MotionEvent.ACTION_UP:
                     stopX = (int) event.getX();
                     stopY = (int) event.getY();
