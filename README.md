@@ -12,4 +12,6 @@ Draw 이벤트 발생시 그림객체 리스트를 모두 캔버스에 그리기
 
 Github 레파지토리( 프로젝트명 : “Project9_1”)의 URL을 제출 함, url 제출이 어려운 경우 프로젝트를 zip파일로 제출 함
 
+app/src/main/java/com/cookandroid/project9_1/MainActivity.java
+
 ![스크린샷 2025-04-14 213908](https://github.com/user-attachments/assets/14435db4-d605-48b9-ae5a-8da46cdf09a9)
