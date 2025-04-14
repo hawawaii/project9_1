@@ -4,6 +4,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     static int curShape = LINE;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(new MyGraphicView(this));
         setTitle("간단한 그림판");
@@ -43,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private static class MyGraphicView extends View {
         int startX = -1, startY = -1, stopX = -1, stopY = -1;
 
-        public MyGraphicView(Context context) {
+        public MyGraphicView(MainActivity context) {
             super(context);
         }
 
@@ -64,6 +69,25 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        protected void onDraw(Canvas canvas) {
+            super.onDraw(canvas);
+            Paint paint = new Paint();
+            paint.setAntiAlias(true);
+            paint.setStrokeWidth(5);
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setColor(Color.RED);
 
+            switch (curShape) {
+                case LINE:
+                    canvas.drawLine(startX, startY, stopX, stopY, paint);
+                    break;
+                case CIRCLE:
+                    int radius = (int) Math.sqrt(Math.pow(stopX - startX, 2) + Math.pow(stopY - startY, 2));
+                    canvas.drawCircle(startX, startY, radius, paint);
+                    break;
+            }
+        }
     }
+
+
 }
